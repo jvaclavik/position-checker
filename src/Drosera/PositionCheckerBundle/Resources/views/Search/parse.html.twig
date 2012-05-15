@@ -1,0 +1,29 @@
+
+
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Kontrola webů ve vyhledávačích{% endblock %}
+{% block heading %}Kontrola webů ve vyhledávačích{% endblock %}
+
+{% block body %}
+
+{% if data is defined %} 
+<table class="jtable">
+    <thead>
+    <tr>
+      <th>Data</th>
+      <th>Odkaz</th>
+    </tr>
+    </thead>
+  {% for url,values in data %}
+
+    <tr>
+      <td>{{values}} </td>
+      <td><a href="{{url}}">odkaz</a></td>
+    </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

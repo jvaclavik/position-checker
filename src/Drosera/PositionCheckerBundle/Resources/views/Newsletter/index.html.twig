@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Rozesílky{% endblock %}
+{% block heading %}Rozesílky{% endblock %}
+
+
+{% block body %}
+<table class="jtable" id="focusTable">
+  <thead>
+    <tr>
+      <th>Web</th>
+      <th>E-mail</th>
+      <th>Aktivní</th>
+      <th>Akce</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for key, row in data  %}
+      <tr>
+        <td><a href="{{ path('renderWebsite', { 'id':  row.websites.id }) }}" title="Zobrazit zaznamenaná data">{{ row.websites.url |replace({'http://': ''}) }}</a></td>
+        <td>
+          {{row.email}}
+        </td>
+        <td><a href="{{ path('changeActiveNewsletter', {'id':  row.id }) }}" class="ui-icon ui-icon-{% if row.active == 1 %}check" title="Nyní je rozesílka aktivní. Klikněte pro její deaktivaci.">{% else %}closethick" title="Nyní je rozesílka slovo neaktivní. Klikněte pro její aktivování.">{% endif %}</a></td>
+        <td><a href="{{ path('deleteNewsletter', {'newsletterId':  row.id }) }}" class="ui-icon ui-icon-trash delete" title="Smazání rozesílky"></a></td>
+        
+      </tr>
+  {% endfor %}
+    </tbody>  
+  </table>
+
+  <a href="{{ path('addNewsletter') }}"  class="button blue margin-form-bottom">Přidat e-mail do rozesílky</a>
+
+
+    
+  
+
+{% endblock %}

@@ -1,0 +1,7 @@
+parameters:
+#    drosera_position_checker.example.class: Drosera\PositionCheckerBundle\Example
+
+services:
+#    drosera_position_checker.example:
+#        class: %drosera_position_checker.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

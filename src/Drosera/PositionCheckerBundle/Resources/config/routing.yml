@@ -1,0 +1,59 @@
+showWebsites:
+    pattern:  /
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:index}
+showWebsite:
+    pattern:  /show/{id}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:showWebsite }
+addWebsite:
+    pattern:  /addWebsite
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:addWebsite }
+addWebsiteAjax:
+    pattern:  /addWebsiteAjax/{website}/{keywords}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:addWebsiteAjax }
+changeActiveWebsite:
+    pattern:  /changeActiveWebsite/{id}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:changeActiveWebsite }
+changeActiveKeyword:
+    pattern:  /show/{websiteId}/changeActiveKeyword/{keywordId}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:changeActiveKeyword }
+deleteWebsite:
+    pattern:  /deleteWebsite/{websiteId}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:deleteWebsite }
+deleteKeyword:
+    pattern:  /show/{websiteId}/deleteKeyword/{keywordId}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:deleteKeyword }  
+import:
+    pattern:  /import
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:import } 
+
+render:
+    pattern:  /render
+    defaults: { _controller: DroseraPositionCheckerBundle:Render:website }
+
+renderWebsite:
+    pattern:  /render/{id}
+    defaults: { _controller: DroseraPositionCheckerBundle:Render:website }
+
+parse:
+    pattern:  /parse
+    defaults: { _controller: DroseraPositionCheckerBundle:Search:parse }
+cronScan:
+    pattern:  /cron/scan
+    defaults: { _controller: DroseraPositionCheckerBundle:Search:cronScan }
+
+
+newsletterList:
+    pattern:  /newsletter
+    defaults: { _controller: DroseraPositionCheckerBundle:Newsletter:index }
+addNewsletter:
+    pattern:  /addNewsletter
+    defaults: { _controller: DroseraPositionCheckerBundle:Newsletter:addNewsletter }
+deleteNewsletter:
+    pattern:  /deleteNewsletter/{newsletterId}
+    defaults: { _controller: DroseraPositionCheckerBundle:Manage:deleteNewsletter }  
+changeActiveNewsletter:
+    pattern:  /changeActiveNewsletter/{id}
+    defaults: { _controller: DroseraPositionCheckerBundle:Newsletter:changeActiveNewsletter }
+cronNewsletter:
+    pattern:  /cron/newsletter
+    defaults: { _controller: DroseraPositionCheckerBundle:Newsletter:cronNewsletter }

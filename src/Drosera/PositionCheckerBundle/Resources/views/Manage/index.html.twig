@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Přehled pozic{% endblock %}
+{% block heading %}Přehled pozic{% endblock %}
+
+
+{% block body %}
+<table class="jtable" id="focusTable">
+  <thead>
+    <tr>
+      <th>Web</th>
+      <th>Aktivní</th>
+      <th class="sorting-disabled">Akce</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for key, row in data  %}
+      <tr>
+        <td><a href="{{ path('renderWebsite', { 'id':  row.id }) }}" title="Zobrazit zaznamenaná data">{{ row.url |replace({'http://': ''}) }}</a></td>
+        <td>
+          <a href="{{ path('changeActiveWebsite', {'id':  row.id }) }}" class="ui-icon ui-icon-{% if row.active == 1 %}check" title="Nyní je web je aktivní. Klikněte pro jeho deaktivaci.">a{% else %}closethick" title="Nyní je web je neaktivní. Klikněte pro jeho aktivaci.">d{% endif %}</a>
+        </td>
+        <!--<td class="heat">{{row.id}}</td>-->
+        <td>
+          <a href="{{ path('showWebsite', { 'id':  row.id }) }}" class="ui-icon ui-icon-wrench" title="Detail nastavení webu"></a>
+           <a href="{{ path('deleteWebsite', {'websiteId':  row.id }) }}" class="ui-icon ui-icon-trash delete" title="Smazání webu"></a>
+        </td> 
+       
+      </tr>
+  {% endfor %}
+    </tbody>  
+  </table>
+
+  <a href="{{ path('addWebsite') }}"  class="button blue margin-form-bottom" id="addWebsiteToggle">Přidat web</a>
+  
+  <form action="{{ path('addWebsite') }}" method="post" {{ form_enctype(form) }} id="addWebsiteForm">
+    {{ form_widget(form) }}
+
+    <input type="submit" class="button blue margin-form-bottom" id="addWebsiteButton" />
+</form> 
+    
+
+
+
+{% endblock %}

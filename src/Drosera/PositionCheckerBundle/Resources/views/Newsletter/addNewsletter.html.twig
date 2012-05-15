@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Přidat e-mail do rozesílky{% endblock %}
+{% block heading %}Přidat e-mail do rozesílky{% endblock %}
+
+
+{% block body %}
+
+
+<form action="{{ path('addNewsletter') }}" method="post" {{ form_enctype(form) }} id="addNewsletterForm">
+    {{ form_widget(form) }}
+
+    <input type="submit" class="button blue margin-form-bottom" value="Přidat do rozesílky" id="addNewsletterButton" />
+</form> 
+    
+  
+
+{% endblock %}

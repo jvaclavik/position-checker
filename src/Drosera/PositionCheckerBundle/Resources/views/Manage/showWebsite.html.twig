@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Web {{ websites.url }}{% endblock %}
+{% block heading %}Web <strong>{{ websites.url }}</strong>{% endblock %}
+
+
+{% block body %}
+
+
+
+
+
+
+    {% if form is defined%}
+<form action="{{ path('renderWebsite',{"id": websites.id}) }}" method="post" {{ form_enctype(form) }}>
+{{ form_errors(form) }}
+
+<h3>{% if form.keywords is defined%}{{ form_label(form.keywords) }}{% endif %}</h3>
+<div class="form-keywords">
+ 
+  {% if form.keywords is defined%}{{ form_errors(form.keywords) }}{% endif %}
+  {% if form.keywords is defined%}{{ form_widget(form.keywords) }}{% endif %}
+</div>
+<h3>{% if form.search is defined%}{{ form_label(form.search) }}{% endif %}</h3>
+<div class="form-search">
+  {% if form.search is defined%}{{ form_errors(form.search) }}{% endif %}
+  {% if form.search is defined%}{{ form_widget(form.search) }}{% endif %}
+</div>
+<h3>{% if form.show is defined%}{{ form_label(form.show) }}{% endif %}</h3>
+<div class="form-show">
+  {% if form.show is defined%}{{ form_errors(form.show) }}{% endif %}
+  {% if form.show is defined%}{{ form_widget(form.show) }}{% endif %}
+</div>
+
+<div class="both">
+  {% if form.from is defined%}{{ form_label(form.from) }}{% endif %}
+  {% if form.from is defined%}{{ form_errors(form.from) }}{% endif %}
+  {% if form.from is defined%}{{ form_widget(form.from) }}{% endif %}
+</div>
+
+<div class="both">
+  {% if form.to is defined%}{{ form_label(form.to) }}{% endif %}
+  {% if form.to is defined%}{{ form_errors(form.to) }}{% endif %}
+  {% if form.to is defined%}{{ form_widget(form.to) }}{% endif %}
+</div>
+
+{% if form is defined%}{{ form_rest(form) }}{% endif %}
+
+
+
+
+  {% if form.keywords is defined%}<input type="submit" value="Zobrazit" class="button blue margin-form-bottom" />{% endif %}
+</form> 
+{% endif %}
+<table class="jtable">
+  <thead>
+    <tr>
+      <th>Klíčové slovo</th>
+      <th>Aktivní</th>
+      <th>Akce</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for row in websites.keywords  %}
+      <tr>
+        <td>{{row.keyword}}</td>
+        <td>
+          <a href="{{ path('changeActiveKeyword', {'websiteId' : websites.id, 'keywordId':  row.id }) }}" class="ui-icon ui-icon-{% if row.active == 1 %}check" title="Nyní je klíčové slovo aktivní. Klikněte pro jeho deaktivaci.">{% else %}closethick" title="Nyní je klíčové slovo neaktivní. Klikněte pro jeho aktivování.">{% endif %}</a>
+
+        </td>
+        <td>
+          <a href="{{ path('deleteKeyword', {'websiteId':  websites.id, 'keywordId':  row.id }) }}" class="ui-icon ui-icon-trash delete" title="Smazání klíčového slova"></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="" id="addKeywordsToggle" class="button blue margin-form-top">Přidat klíčová slova</a>
+
+<form id="addKeywordsForm" action="{{ path('showWebsites') }}" method="post" {{ form_enctype(formAddKeywords) }}>
+  {{ form_widget(formAddKeywords) }}
+
+    <input type="submit" value="Přidat" class="button blue margin-form-bottom" id="addKeywordsButton" />
+</form> 
+
+
+
+
+{% endblock %}  

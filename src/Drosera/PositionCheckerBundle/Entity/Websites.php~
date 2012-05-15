@@ -1,0 +1,39 @@
+<?php
+
+namespace Drosera\PositionCheckerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Drosera\PositionCheckerBundle\Entity\Websites
+ *
+ * @ORM\Table(name="websites")
+ * @ORM\Entity
+ */
+class Websites
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string $url
+     *
+     * @ORM\Column(name="url", type="string", length=100, nullable=false)
+     */
+    private $url;
+
+    /**
+     * @var boolean $active
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=true)
+     */
+    private $active;
+
+
+}

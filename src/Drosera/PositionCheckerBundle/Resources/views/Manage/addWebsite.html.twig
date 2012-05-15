@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Přidat stránku{% endblock %}
+{% block heading %}Přidat stránku{% endblock %}
+
+
+{% block body %}
+
+<form action="{{ path('addWebsite') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+
+    <input type="submit" class="button blue margin-form-bottom" />
+</form> 
+    
+  
+
+{% endblock %}

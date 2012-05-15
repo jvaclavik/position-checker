@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Import{% endblock %}
+{% block heading %}Import{% endblock %}
+
+
+{% block body %}
+<form action="{{ path('import') }}" method="post" {{ form_enctype(form) }}>
+  {{ form_widget(form) }}
+
+  <input type="submit" value="Zpracovat data" class="button blue margin-form-bottom" id="importButton" />
+</form> 
+    
+  
+
+{% endblock %}

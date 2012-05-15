@@ -1,0 +1,30 @@
+
+
+DroseraPositionCheckerBundle:
+    resource: "@DroseraPositionCheckerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+#TaskBundle:
+#    resource: "@TaskBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#AcmeSumBundle:
+#    resource: "@AcmeSumBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
+
+
+# app/config/routing.yml
+#AcmeHelloBundle:
+#    resource: "@AcmeHelloBundle/Resources/config/routing.yml"
+#    prefix:   /
+#    
+## app/config/routing.yml
+#AcmeSumBundle:
+#    resource: "@AcmeSumBundle/Resources/config/routing.yml"
+#    prefix:   /
+#    

@@ -1,0 +1,31 @@
+
+{% for search, oth1 in container %}
+  <h3>{{search|replace({'_': '.'})}}</h3><br>
+  <table class="jtable" {% if email is defined%} width="100%" border="1"{% endif %} >
+    <thead>
+      <tr>
+        <th>KW</th>
+        {% for date in dateInterval %}
+          <th><small>{{date|date("d.m.")}}</small></th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for keyword, oth2 in oth1 %}
+      <tr>  
+        <td>{{keyword}}</td>
+
+      {% for date, position in oth2 %}
+        <td>
+          {%if position != 0 %}
+            {{position}}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+    </body>  
+  </table>
+{% endfor %}

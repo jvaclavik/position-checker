@@ -1,0 +1,15 @@
+Position checker 1.0
+====================
+This software is under GNU General Public License version 3: http://gplv3.fsf.org/
+
+
+Author
+======
+Jan Vaclavik
+http://janvaclavik.cz
+jsem@janvaclavik.cz
+
+
+Version
+=======
+1.0 - 13.5.2012

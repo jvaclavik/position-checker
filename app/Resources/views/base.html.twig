@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Position checker!{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{ asset('js/excanvas.min.js') }}"></script><![endif]-->
+{# stylesheets
+    
+    'css/screen.css'
+    'css/demo_table.css'
+    'css/jquery-ui-1.8.18.custom.css'
+
+    output='css/styles.css'
+#}
+<link rel="stylesheet" href="{{ asset('css/screen.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/demo_table.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/jquery-ui-1.8.18.custom.css') }}" />
+
+
+
+{# endstylesheets #}  
+    
+
+<script src='{{ asset("js/jquery-1.7.1.min.js") }}'></script>
+<script src='{{ asset("js/jquery-ui-1.8.18.custom.min.js") }}'></script>
+<script src='{{ asset("js/jquery.dataTables.min.js") }}'></script>
+<script src='{{ asset("js/js.js") }}'></script>
+<script src='{{ asset("js/jquery.flot.js") }}'></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <h1>Position Checker <sub>verze 1.0</sub></h1>
+    </div>
+    <nav>
+      <a href="{{ path('showWebsites') }}">Přehled pozic</a>
+      <a href="{{ path('newsletterList') }}">Rozesílka</a>
+      <a href="{{ path('import') }}">Import</a>
+      
+    </nav>
+    <div id="content">
+    <h2>{% block heading %}{% endblock %}</h2>
+    
+{% for key, flash in app.session.getFlashes() %}
+    <div class="messages">
+        {{ flash }}
+    </div>
+{% endfor %}
+
+    
+    {% block body %}{% endblock %}
+    </div>
+      <div id="footer">
+        &copy; Copyright <a href="http://janvaclavik.cz" target="_blank">Jan Václavík</a> 2012<br>
+        Vytvořeno v rámci bakalářské práce na <a href="http://fit.cvut.cz" target="_blank">ČVUT FIT</a>.
+      </div>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+{# empty Twig template #}
+
+{% extends '::base.html.twig' %}
+
+
+{% block title %}Přehled pozic{% endblock %}
+{% block heading %}Zobrazení pozic{% endblock %}
+
+
+{% block body %}
+
+
+{% if show == "export" %}
+<h3>Export</h3>
+<textarea class="textarea-big">
+{{url}}
+{% for search, oth1 in container %}
+{% for keyword, oth2 in oth1 %}
+#{{search}}:{{keyword}}#
+{% for date, position in oth2 %}
+{% if position != 0 %}
+{{ date }},{{ position }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}#
+</textarea>
+{% else %}
+
+{% if types.plot is defined %}
+  <div id="plot">
+    <h3>Graf</h3>
+    <ul id="filter">
+      {% for search, oth1 in container %}
+        <li><a href="" class="filter-button" title="{{search}}">{{search|replace({'_': '.'})}}</a></li>
+      {% endfor %}
+      <li><a href="" class="filter-button" title="all" id="filter-actual">Vše</a></li>
+      <li class="settings"><a href="{{ path('showWebsite', { 'id':  id }) }}" title="all">Nastavení</a></li>
+    </ul>
+    <div id="placeholder-box"><div class="inside"><div id="placeholder" style="width:100%;height:400px;"></div></div></span></div>
+    <a  href="#" id="hideLegend">Zobrazit / skrýt legendu</a><br>
+    <a  href="#" id="showChoices">Zobrazit / skrýt klíčová slova</a>
+    <p id="choices"></p>
+    <script type="text/javascript">
+      
+      $(function () {
+        var datasets = {
+          {% for search, oth1 in container %}
+            {% for keyword, oth2 in oth1 %}
+            '{{search}}_{{keyword}}': {label:'<em class="searchEngine">{{search|replace({'_': '.'})}} - </em> <strong class="keyword">{{keyword}}</strong>', 
+              data:[
+                {% for date, position in oth2 %}
+                  {% if position != 0 %}
+                    [{{ date | date('U')*1000 }}, {{ position }}],
+                  {% endif %}
+                {% endfor %}
+              ]},
+            {% endfor %}
+          {% endfor %}
+        };
+
+        // hard-code color indices to prevent them from shifting as
+        // countries are turned on/off
+        var i = 0;
+        $.each(datasets, function(key, val) {
+          val.color = i;
+          ++i;
+        });
+
+
+        function showTooltip(x, y, contents) {
+          $('<div id="tooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #5C9CCC',
+            padding: '5px',
+            'background-color': '#fff',
+            'border-radius': '4px',
+            'z-index': '5',
+
+            color: '#000',
+            'font-size': '70%',
+            opacity: 0.90
+          }).appendTo("body").fadeIn(200);
+        }
+
+
+        $('.filter-button').click(function(e) {
+          $('.filter-button').removeAttr("id")
+          $(this).attr("id", "filter-actual")
+          var title = $(this).attr("title");
+          $("#choices input").attr("checked",false);
+          $("#choices input").each(function () {
+            var regexp = new RegExp(title)
+            if($(this).attr("name").search(regexp) != -1 || title == "all"){
+              $(this).attr("checked",true);
+              plotAccordingToChoices();
+            }
+          });
+          return false; 
+        });
+        
+        $(window).resize(function() {
+          plotAccordingToChoices();
+        });
+
+        // insert checkboxes 
+        var choiceContainer = $("#choices");
+        choiceContainer.hide();
+        $("#showChoices").click(function(e) {
+          choiceContainer.toggle("fast");
+          return false;
+        });
+        $("#hideLegend").click(function(e) {
+          $(".legend").toggle();
+          return false;
+        });
+        
+        
+        
+        $.each(datasets, function(key, val) {
+          choiceContainer.append('<br/><input type="checkbox" name="' + key +
+            '" checked="checked" id="id' + key + '">' +
+            '<label for="id' + key + '">'
+            + val.label + '</label>');
+        });
+        choiceContainer.find("input").click(plotAccordingToChoices);
+
+
+        function plotAccordingToChoices() {
+          var data = [];
+
+          choiceContainer.find("input:checked").each(function () {
+            var key = $(this).attr("name");
+            if (key && datasets[key])
+              data.push(datasets[key]);
+          });
+
+          if (data.length > 0)
+            $.plot($("#placeholder"), data, {
+              series: {
+                lines: { show: true },
+                points: { show: true }
+              },
+            grid: { hoverable: true, clickable: true, borderWidth: 1, minBorderMargin:30 },
+
+            yaxis: { min: 0,  tickDecimals: 0,minTickSize: [1], labelWidth: 30  },
+            xaxis: { tickDecimals: 0,  mode: 'time',timeformat: "%d.%m", minTickSize: [1, "day"] },
+            legend: {
+              show: true, 
+              position:'nw',
+							//container: $("#legend-box") 
+            }
+          });
+        }
+        var previousPoint = null;
+        $("#placeholder").bind("plothover", function (event, pos, item) {
+          $("#x").text(pos.x.toFixed(2));
+          $("#y").text(pos.y.toFixed(2));
+
+          //if ($("#enableTooltip:checked").length > 0) {
+          if (item) {
+            if (previousPoint != item.dataIndex) {
+              previousPoint = item.dataIndex;
+
+              $("#tooltip").remove();
+              var x = item.datapoint[0].toFixed(2),
+              y = item.datapoint[1].toFixed(2);
+
+var date = new Date(Math.round(x));
+var dateString = date.getDate() +"."+ date.getMonth()+"."+date.getFullYear(); 
+/* +".*/
+
+              showTooltip(item.pageX, item.pageY,
+
+              "<div class='tooltip-label'>" + item.series.label + "</div>"+ dateString +"<br>  <div class='tooltip-position'>" + Math.round(y)+"</div>");
+            }
+          }
+          else {
+            $("#tooltip").remove();
+            previousPoint = null;            
+          }
+          //}
+        });
+        plotAccordingToChoices();
+
+
+        $("#placeholder").bind("plotclick", function (event, pos, item) {
+          if (item) {
+            $("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
+            plot.highlight(item.series, item.datapoint);
+          }
+        });
+
+
+      });
+    </script>
+  </div>
+
+  
+{% endif %}
+
+{% if types.table is defined %}
+  <div id="table">
+  <h3>Tabulka</h3>
+  <div style="margin: 0 0px 10px 0">
+    {% include 'DroseraPositionCheckerBundle:Newsletter:emailTemplate.html.twig' %}
+  </div>
+  </div>
+{% endif %}
+{% endif %}
+
+
+
+
+{% endblock %}  

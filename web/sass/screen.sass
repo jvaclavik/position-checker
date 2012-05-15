@@ -1,0 +1,267 @@
+$font-family: "Trebuchet MS"
+$row-height: 30px
+$label-width: 200px
+
+$color-brown-lighter: #EBE7E0
+$color-brown-darker: #BDB8AD
+$color-blue-darker: #44749D
+$color-blue-lighter: #C6D4E1
+$color-white: #fff
+
+$phone: 600px
+
+
+
+
+
+@mixin transition($what: background, $time: 0.2s, $type: ease)
+  -webkit-transition: #{$what} #{$time} #{$type}
+  -moz-transition: #{$what} #{$time} #{$type}
+
+
+@mixin gradient-simple($color1, $color2, $color3)
+  background: #{$color2}
+  background: -moz-linear-gradient(top, #{$color1} 0%, #{$color2} 51%, #{$color3} 100%)
+  background: -webkit-linear-gradient(top,  #{$color1} 0%,#{$color2} 51%,#{$color3} 100%)
+  background: -o-linear-gradient(top,  #{$color1} 0%,#{$color2} 51%,#{$color3} 100%)
+  background: -ms-linear-gradient(top,  #{$color1} 0%,#{$color2} 51%,#{$color3} 100%)
+
+
+
+
+
+
+
+body
+  background: #fff
+  margin: 0px
+  font:
+    family: $font-family
+    size: 90%
+
+
+#header
+  +gradient-simple(lighten($color-blue-darker, 20), lighten($color-blue-darker, 10), $color-blue-darker)
+  color: #fff
+  height: 80px
+
+#footer
+  color: $color-brown-darker
+  font-size: 10px
+  position: fixed
+  bottom: 0
+  right: 0
+  padding: 10px
+  text-align: right
+  background: rgba(255,255,255,0.7)
+  width: 100%
+  border-top: solid 3px rgba(255,255,255,0.9)
+
+  a
+    color: $color-brown-darker
+
+#content
+  margin: 10px 30px 50px 30px
+  @media only screen and (max-width: 600px)
+    margin: 10px 3px 50px 3px
+
+
+h1
+  font-size: 2em
+  margin: 0
+  padding: 30px 30px
+  color: #fff
+  white-space: nowrap
+  sub
+    font-weight: normal
+    color: $color-brown-lighter
+    font-size: 13px
+    position: relative
+    top: -7px
+    
+
+
+
+nav
+  height: 50px
+  +gradient-simple(lighten($color-brown-darker, 10), lighten($color-brown-darker, 7), $color-brown-darker)
+
+  a
+    display: block
+    line-height: 50px
+    width: 150px
+    float: left
+    text-shadow: 0 0 7px lighten($color-brown-darker, 90)
+    text: 
+      align: center
+      decoration: none
+    color: #000
+    border-left: solid 1px darken($color-brown-darker, 2)
+    
+    @media only screen and (max-width: 600px)
+      width: 100px
+
+    
+      
+
+    &:hover
+      background: lighten($color-brown-darker, 25)
+      +transition(background, 0.5s, ease)
+
+
+      
+
+    
+td, th
+  padding: 5px
+
+th
+  font-weight: bold
+  cursor: pointer
+  text:
+    decoration: underline
+    align: left
+
+a 
+  color: darken($color-blue-darker,20)
+  
+
+
+#plot .searchEngine
+  font-size: 90%
+  color: #aaa
+  font-style: normal
+
+#plot .keyword
+  color: #000
+  font-weight: normal
+
+.messages
+  background: $color-brown-lighter
+  border:
+    radius: 5px
+  padding: 5px
+  margin: 10px 0
+
+
+.jtable 
+  width: 100%
+  .sorting-disabled
+    span
+      display: none
+  tr,
+    &:hover 
+      td, td.sorting_1
+        background: $color-blue-lighter
+  th small
+    font-size: 60%
+  tbody
+    width: 100%
+    overflow: auto
+
+.tooltip-position
+  font: bold 20px $font-family
+
+.tooltip-label
+  font-size: 13px
+
+#filter
+  min-width: 300px
+  height: $row-height + 10px
+  margin-bottom: 0
+  @media only screen and (max-width: 600px)
+    padding: 0
+  #filter-actual
+    +gradient-simple(lighten($color-brown-lighter, 5), lighten($color-brown-lighter, 3), $color-brown-lighter)
+    box-shadow: 0 0 8px 2px #888    
+    position: relative
+    z-index: 3
+
+  li
+    float: left
+    width: 100px
+    height: $row-height + 10px
+    margin-right: 20px
+    list-style-type: none
+    white-space: nowrap
+    &.settings
+      float: right
+    @media only screen and (max-width: 600px)
+      width: 60px
+      font-size: 80%
+      margin-right: 2px
+
+    a
+      color: #000
+      text-align: center
+      display: block
+      line-height: $row-height + 10px
+      +gradient-simple(lighten($color-brown-darker, 5), lighten($color-brown-darker, 3), $color-brown-darker)
+      border-radius: 8px 8px 0 0
+      text-decoration: none
+      vertical-align: middle
+      
+
+      
+#placeholder-box
+
+  clear: both
+  background: $color-brown-lighter
+  margin-bottom: 20px
+  box-shadow: 0 0 12px rgba(0,0,0,.75)
+  position: relative /* IMPORTANT PART */
+
+  > .inside
+    background: $color-brown-lighter
+    position: relative
+    z-index: 4
+    display: block
+
+#choices
+  margin-top: 0
+	
+	
+.legend table
+  display: inline-block
+  overflow-y: auto
+  white-space: nowrap
+  max-height: 280px
+  width: 280px
+  background: rgba(255,255,255,0.6)
+
+
+
+//
+//FORMs
+//
+
+#ImportType label, #newsletter label, #ChangeWebsite label
+  display: block
+
+h3 label
+  float: none
+  
+
+/*form > div > div ul
+  margin: 0
+  display: inline
+  li
+    display: inline*/
+    
+textarea.textarea-small
+  width: 200px
+  height: 100px
+
+textarea.textarea-big
+  width: 500px
+  height: 300px
+
+
+
+
+
+//#addWebsiteButton, #addNewsletterButton, #importButton
+//  margin-left: $label-width+2
+
+
+//http://www.colourlovers.com/palette/59867/Blown_Entrepreneur

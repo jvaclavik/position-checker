@@ -1,0 +1,59 @@
+<?php
+
+namespace Drosera\PositionCheckerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Drosera\PositionCheckerBundle\Entity\Positions
+ *
+ * @ORM\Table(name="positions")
+ * @ORM\Entity
+ */
+class Positions
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var date $date
+     *
+     * @ORM\Column(name="date", type="date", nullable=false)
+     */
+    private $date;
+
+    /**
+     * @var integer $position
+     *
+     * @ORM\Column(name="position", type="integer", nullable=false)
+     */
+    private $position;
+
+    /**
+     * @var Search
+     *
+     * @ORM\ManyToOne(targetEntity="Search")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="search_id", referencedColumnName="id")
+     * })
+     */
+    private $search;
+
+    /**
+     * @var Keywords
+     *
+     * @ORM\ManyToOne(targetEntity="Keywords")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="keywords_id", referencedColumnName="id")
+     * })
+     */
+    private $keywords;
+
+
+}

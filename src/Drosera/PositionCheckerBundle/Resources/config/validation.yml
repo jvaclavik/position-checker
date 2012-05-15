@@ -1,0 +1,9 @@
+# Acme/TaskBundle/Resources/config/validation.yml
+Drosera\PositionCheckerBundle\Entity\Newsletter:
+    properties:
+        email:
+            - Email:
+                message: The email "{{ value }}" is not a valid email.
+                checkMX: true
+                
+               
