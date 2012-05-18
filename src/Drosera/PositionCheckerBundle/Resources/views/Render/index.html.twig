@@ -169,13 +169,13 @@
               var x = item.datapoint[0].toFixed(2),
               y = item.datapoint[1].toFixed(2);
 
-var date = new Date(Math.round(x));
+var date = new Date(x);
 var dateString = date.getDate() +"."+ date.getMonth()+"."+date.getFullYear(); 
 /* +".*/
 
               showTooltip(item.pageX, item.pageY,
 
-              "<div class='tooltip-label'>" + item.series.label + "</div>"+ dateString +"<br>  <div class='tooltip-position'>" + Math.round(y)+"</div>");
+              "<div class='tooltip-label'>" + item.series.label + "</div><div class='tooltip-position'>" + Math.round(y)+"</div>");
             }
           }
           else {
